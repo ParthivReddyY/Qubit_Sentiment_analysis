@@ -128,4 +128,6 @@ The script will proceed through the phases: Setup, Data Preparation, VQC/MLP Pip
 * **Performance:** On this specific run with a small dataset and PCA-reduced features, the classical MLP slightly outperformed the VQC when using the same input features. BERT significantly outperformed both.
 * **Training Time:** VQC simulation was considerably slower than the classical models.
 * **Quantum Advantage:** Determining text types where quantum processing offers a clear advantage requires further research, considering limitations in current input encoding methods, hardware constraints, and model trainability.
+
+
 ```
