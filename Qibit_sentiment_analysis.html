@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QNLP Sentiment Analysis - Parthiv Reddy Yarrapureddy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="antialiased">
+
+    <nav class="bg-dark-card/80 backdrop-blur-md sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold text-gold">QNLP Project</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#overview" class="nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Overview</a>
+                        <a href="#quantum-computing" class="nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Quantum Basics</a>
+                        <a href="#methodology" class="nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Methodology</a>
+                        <a href="#quantum-aspects" class="nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">VQC Details</a>
+                        <a href="#results" class="nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Results</a>
+                        <a href="#analysis" class="nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Analysis</a>
+                        <a href="#code" class="nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Code</a>
+                        <a href="#future-potential" class="nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Potential</a>
+                        <a href="#future-enhancements" class="nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Enhancements</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" class="bg-dark-card inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleMenu()">
+                        <span class="sr-only">Open main menu</span>
+                        <svg id="menu-icon-bars" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                        <svg id="menu-icon-x" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+         <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#overview" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Overview</a>
+                <a href="#quantum-computing" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Quantum Basics</a>
+                <a href="#methodology" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Methodology</a>
+                <a href="#quantum-aspects" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">VQC Details</a>
+                <a href="#results" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Results</a>
+                <a href="#analysis" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Analysis</a>
+                <a href="#code" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Code</a>
+                <a href="#future-potential" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Potential</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative overflow-hidden min-h-[80vh] flex items-center justify-center text-center px-6 lg:px-8 parallax-bg">
+         <div class="absolute inset-0 z-0">
+             <img src="https://www.science.org/do/10.1126/science.adh2923/full/_0224_quantumcomputing.jpg"
+                  alt="Quantum Technology Visualization"
+                  class="w-full h-full object-cover opacity-40 object-center filter brightness-110"
+                  onerror="this.style.display='none'; document.getElementById('hero-fallback-bg').style.display='block';"
+             />
+             <div id="hero-fallback-bg" class="absolute inset-0 bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 opacity-80" style="display: none;"></div>
+         </div>
+
+        <div class="relative z-10 fade-in max-w-4xl hero-content">
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-light mb-6">
+                Quantum Natural Language Processing <br class="hidden md:block"/> for Sentiment Analysis
+            </h1>
+            <div class="mt-6 mb-8">
+                <p class="text-lg font-medium text-gold">Parthiv Reddy Yarrapureddy</p>
+                <p class="text-md text-gray-400">B.Tech 3rd Year, Computer Science & Engineering - Mahindra University</p>
+            </div>
+            <p class="text-lg md:text-xl text-gray-300">
+                Exploring the potential of Variational Quantum Circuits (VQCs) combined with novel embedding techniques to enhance text classification in the NISQ era.
+            </p>
+            <div class="mt-8">
+                <a href="#overview" class="btn-quantum inline-flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                    Explore Project
+                </a>
+            </div>
+        </div>
+
+        <!-- Animated qubit orbs -->
+        <div class="absolute bottom-10 left-10 w-20 h-20 rounded-full bg-blue-500/20 backdrop-blur-md floating" style="animation-delay: 0s;"></div>
+        <div class="absolute top-20 right-20 w-16 h-16 rounded-full bg-purple-500/20 backdrop-blur-md floating" style="animation-delay: 0.5s;"></div>
+        <div class="absolute bottom-32 right-16 w-12 h-12 rounded-full bg-teal-500/20 backdrop-blur-md floating" style="animation-delay: 1s;"></div>
+    </header>
+
+    <main class="container mx-auto px-6 lg:px-8">
+
+        <section id="overview" class="fade-in">
+            <h2 class="text-4xl font-bold text-center text-gold">Project Overview</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center mt-12">
+                <div class="card border-l-4 border-gold slide-in-left">
+                    <h3 class="text-2xl font-semibold mb-4 text-reg-blue">The Challenge</h3>
+                    <p class="text-gray-300 mb-4">
+                        Sentiment analysis is vital, but classical models like BERT can be resource-heavy. Quantum computing offers new paradigms. Can Quantum NLP, using near-term VQCs, provide a novel way to capture complex semantics, potentially offering advantages for specific tasks?
+                    </p>
+                    <h3 class="text-2xl font-semibold mb-4 text-reg-blue">Our Goal & Scope</h3>
+                    <p class="text-gray-300">
+                        This project develops and evaluates a <strong>quantum-enhanced</strong> sentiment model, focusing on:
+                        <ul class="list-disc list-inside text-gray-400 mt-2 space-y-1 text-sm">
+                            <li>A quantum-compatible embedding scheme.</li>
+                            <li>A 4-qubit VQC implementation.</li>
+                            <li>Training on a subset of IMDb reviews.</li>
+                            <li>Comparison against MLP (same features) and BERT baselines.</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="img-container slide-in-right glow-border">
+                    <img src="https://c8.alamy.com/comp/2NE7NX6/qubit-superposition-of-all-the-classically-allowed-states-quantum-bit-concept-representation-visualization-of-qubit-2NE7NX6.jpg" 
+                         alt="Qubit Superposition Visualization" 
+                         class="w-full h-auto rounded feature-image" />
+                    <p class="text-center text-xs text-gray-400 mt-2">Qubit superposition states visualization</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add a section divider -->
+        <div class="section-divider"></div>
+
+        <section id="quantum-computing" class="fade-in">
+            <h2 class="text-4xl font-bold text-center text-gold">Quantum Computing Fundamentals</h2>
+            <div class="grid md:grid-cols-3 gap-8 mt-12">
+                <div class="card hover:shadow-gold transition duration-300 border-t-4 border-gold">
+                    <div class="flex justify-center mb-4">
+                        <svg class="w-16 h-16 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3 text-reg-blue">Qubits: Beyond Bits</h3>
+                    <p class="text-gray-300 text-sm">
+                        The fundamental unit of quantum information. Unlike classical bits (0 or 1), **qubits** leverage **superposition** to exist as 0, 1, or both simultaneously, enabling parallel computation.
+                    </p>
+                </div>
+                 <div class="card hover:shadow-gold transition duration-300 border-t-4 border-gold">
+                     <div class="flex justify-center mb-4">
+                         <svg class="w-16 h-16 text-quantum-purple" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 32C4 32 16 12 32 32C48 52 60 32 60 32" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M4 32C4 32 16 52 32 32C48 12 60 32 60 32" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 6"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3 text-reg-blue">Superposition</h3>
+                    <p class="text-gray-300 text-sm">
+                        Allows a qubit to represent multiple states at once (|Ψ⟩ = α|0⟩ + β|1⟩). Measurement collapses the superposition into a definite state (0 or 1) based on probabilities (|α|², |β|²).
+                    </p>
+                </div>
+                 <div class="card hover:shadow-gold transition duration-300 border-t-4 border-gold">
+                     <div class="flex justify-center mb-4">
+                         <svg class="w-16 h-16 text-quantum-teal" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="32" r="8" stroke="currentColor" stroke-width="3"/>
+                            <circle cx="44" cy="32" r="8" stroke="currentColor" stroke-width="3"/>
+                            <path d="M28 32 C 32 24, 36 24, 40 32 C 36 40, 32 40, 28 32 Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                             <path d="M20 32 L 12 24 M 20 32 L 12 40 M 44 32 L 52 24 M 44 32 L 52 40" stroke="currentColor" stroke-width="2" opacity="0.6"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3 text-reg-blue">Entanglement</h3>
+                    <p class="text-gray-300 text-sm">
+                        A unique quantum correlation where multiple qubits are linked. Measuring the state of one entangled qubit instantly influences the state of the others, regardless of distance. Essential for quantum communication and complex algorithms.
+                    </p>
+                </div>
+            </div>
+            <div class="mt-12 flex justify-center">
+                 <img src="https://scitechdaily.com/images/Quantum-Computing-Qubit-Art-1536x1024.jpg"
+                      alt="Quantum Computing Qubit Art"
+                      class="rounded-lg shadow-xl max-w-xl w-full h-auto object-contain"
+                      onerror="this.parentElement.innerHTML='<div class=\'text-center text-gray-500 p-4\'>[Quantum Art Image Unavailable]</div>';"
+                 />
+            </div>
+        </section>
+
+        <section id="methodology" class="fade-in">
+            <h2 class="text-4xl font-bold text-center text-gold">Methodology: The Hybrid Pipeline</h2>
+            <div class="card mt-12 border-l-4 border-reg-blue">
+                <h3 class="text-2xl font-semibold mb-8 text-center text-reg-blue">Pipeline Steps</h3>
+                <div class="relative">
+                    <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-blue-500/30 hidden md:block" style="transform: translateX(-50%);"></div>
+                    <div class="space-y-10 md:space-y-0 md:grid md:grid-cols-5 md:gap-8 items-start relative">
+                         <div class="text-center relative z-10 md:col-span-1">
+                            <div class="mx-auto w-20 h-20 rounded-full bg-dark-code flex items-center justify-center mb-3 ring-4 ring-gray-700 border border-reg-blue">
+                                <svg class="w-10 h-10 text-reg-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            </div>
+                            <h4 class="font-semibold text-lg mb-1 text-light">1. Text Data</h4>
+                            <p class="text-sm text-gray-400">IMDb Reviews</p>
+                        </div>
+                         <div class="text-center relative z-10 md:col-span-1">
+                             <div class="mx-auto w-20 h-20 rounded-full bg-dark-code flex items-center justify-center mb-3 ring-4 ring-gray-700 border border-reg-blue">
+                               <svg class="w-10 h-10 text-reg-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg>
+                            </div>
+                            <h4 class="font-semibold text-lg mb-1 text-light">2. Classical Features</h4>
+                            <p class="text-sm text-gray-400">GloVe Avg -> PCA (4D)</p>
+                        </div>
+                         <div class="text-center relative z-10 md:col-span-1">
+                             <div class="mx-auto w-20 h-20 rounded-full bg-dark-code flex items-center justify-center mb-3 ring-4 ring-gray-700 border border-quantum-teal">
+                                <svg class="w-10 h-10 text-quantum-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            </div>
+                            <h4 class="font-semibold text-lg mb-1 text-light">3. Quantum Encoding</h4>
+                            <p class="text-sm text-gray-400">Angle Embedding</p>
+                        </div>
+                         <div class="text-center relative z-10 md:col-span-1">
+                             <div class="mx-auto w-20 h-20 rounded-full bg-dark-code flex items-center justify-center mb-3 ring-4 ring-gray-700 border border-quantum-teal">
+                                <svg class="w-10 h-10 text-quantum-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            </div>
+                            <h4 class="font-semibold text-lg mb-1 text-light">4. Quantum Circuit</h4>
+                            <p class="text-sm text-gray-400">VQC (3 Layers)</p>
+                        </div>
+                         <div class="text-center relative z-10 md:col-span-1">
+                             <div class="mx-auto w-20 h-20 rounded-full bg-dark-code flex items-center justify-center mb-3 ring-4 ring-gray-700 border border-reg-blue">
+                                <svg class="w-10 h-10 text-reg-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            </div>
+                            <h4 class="font-semibold text-lg mb-1 text-light">5. Sentiment Output</h4>
+                            <p class="text-sm text-gray-400">PauliZ Measurement</p>
+                        </div>
+                    </div>
+                </div>
+                 <p class="text-center text-gray-400 mt-10 italic">This "Quantum-Focused Embedding" prepares classical data for the VQC, balancing semantic richness with quantum input constraints.</p>
+            </div>
+        </section>
+
+        <section id="quantum-aspects" class="fade-in">
+            <h2 class="text-4xl font-bold text-center text-gold">Variational Quantum Circuit (VQC) Details</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                <div class="card hover:shadow-gold transition duration-300">
+                    <div class="flex justify-center mb-4">
+                        <svg class="w-16 h-16 text-quantum-purple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3 text-reg-blue">4 Qubits & Angle Encoding</h3>
+                    <p class="text-gray-300 text-sm">
+                        Utilized 4 qubits, matching PCA output. `qml.AngleEmbedding` maps features to qubit rotations. A common, direct method for loading real-valued data in NISQ algorithms.
+                    </p>
+                </div>
+                 <div class="card hover:shadow-gold transition duration-300">
+                     <div class="flex justify-center mb-4">
+                        <svg class="w-16 h-16 text-quantum-purple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3 text-reg-blue">Strongly Entangling Layers</h3>
+                    <p class="text-gray-300 text-sm">
+                        Trainable core uses `qml.StronglyEntanglingLayers` (3 layers). Known for good expressivity, applying parameterized rotations and CNOTs to create entanglement and explore complex functions.
+                    </p>
+                </div>
+                 <div class="card hover:shadow-gold transition duration-300 lg:col-span-1"> <div class="flex justify-center mb-4">
+                        <svg class="w-16 h-16 text-quantum-purple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20V16"></path><circle cx="12" cy="6" r="2"></circle><path d="M18 20a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3 text-reg-blue">Measurement & Hybrid Model</h3>
+                    <p class="text-gray-300 text-sm">
+                        Output via `qml.expval(qml.PauliZ(wires=0))`. QNode wrapped in PyTorch `nn.Module` for hybrid training using classical optimization infrastructure.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="results" class="fade-in">
+            <h2 class="text-4xl font-bold text-center text-gold">Performance Comparison</h2>
+            <div class="card mt-12 border-t-4 border-gold overflow-x-auto">
+                <h3 class="text-2xl font-semibold mb-6 text-center text-reg-blue">Evaluation Metrics (IMDb Subset - 1000 samples)</h3>
+                <table class="w-full min-w-[700px] text-left border-collapse">
+                     <thead>
+                        <tr class="bg-dark-code">
+                            <th class="p-4 font-semibold border border-gray-600 text-light">Model</th>
+                            <th class="p-4 font-semibold border border-gray-600 text-light">Input Features</th>
+                            <th class="p-4 font-semibold border border-gray-600 text-center text-light">Accuracy</th>
+                            <th class="p-4 font-semibold border border-gray-600 text-center text-light">Precision</th>
+                            <th class="p-4 font-semibold border border-gray-600 text-center text-light">Recall</th>
+                            <th class="p-4 font-semibold border border-gray-600 text-center text-light">F1-Score</th>
+                            <th class="p-4 font-semibold border border-gray-600 text-center text-light">Time (s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-700/50">
+                            <td class="p-3 border border-gray-600 font-medium text-quantum-teal">VQC</td>
+                            <td class="p-3 border border-gray-600 text-sm">Avg GloVe -> PCA (4D) -> Angle</td>
+                            <td class="p-3 border border-gray-600 text-center">0.6700</td>
+                            <td class="p-3 border border-gray-600 text-center">0.6906</td>
+                            <td class="p-3 border border-gray-600 text-center">0.6160</td>
+                            <td class="p-3 border border-gray-600 text-center font-semibold">0.6512</td>
+                            <td class="p-3 border border-gray-600 text-center text-red-400">~394.40</td>
+                        </tr>
+                        <tr class="hover:bg-gray-700/50">
+                            <td class="p-3 border border-gray-600 font-medium">MLP</td>
+                            <td class="p-3 border border-gray-600 text-sm">Avg GloVe -> PCA (4D)</td>
+                            <td class="p-3 border border-gray-600 text-center">0.6900</td>
+                            <td class="p-3 border border-gray-600 text-center">0.7149</td>
+                            <td class="p-3 border border-gray-600 text-center">0.6320</td>
+                            <td class="p-3 border border-gray-600 text-center font-semibold">0.6709</td>
+                            <td class="p-3 border border-gray-600 text-center text-green-400">~2.29</td>
+                        </tr>
+                        <tr class="hover:bg-gray-700/50">
+                            <td class="p-3 border border-gray-600 font-medium">BERT</td>
+                            <td class="p-3 border border-gray-600 text-sm">Raw Text -> BERT Tokenizer</td>
+                            <td class="p-3 border border-gray-600 text-center">0.8240</td>
+                            <td class="p-3 border border-gray-600 text-center">0.8000</td>
+                            <td class="p-3 border border-gray-600 text-center">0.8640</td>
+                            <td class="p-3 border border-gray-600 text-center font-bold text-green-400">0.8308</td>
+                            <td class="p-3 border border-gray-600 text-center">~35.20</td>
+                        </tr>
+                    </tbody>
+                </table>
+                 <p class="text-center text-gray-400 mt-6 italic text-sm">Key comparison: VQC vs MLP on identical 4D input features.</p>
+            </div>
+            
+            <!-- Add interactive visualization -->
+            <div class="mt-10 bg-dark-card rounded-lg p-6 quantum-circuit">
+                <h3 class="text-xl font-semibold text-center mb-4 text-reg-blue">Visual Performance Comparison</h3>
+                <div class="w-full h-64 bg-gray-800/50 rounded-lg flex items-end justify-around p-4 relative">
+                    <!-- Explanation text -->
+                    <div class="absolute -top-1 right-2 text-xs text-gray-400">F1-Score Comparison</div>
+                    
+                    <!-- MLP Bar - 67.09% of max height -->
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 bg-gradient-to-t from-blue-600 to-blue-400 rounded-t-lg data-bar transition-all duration-1000" style="height: 130px;"></div>
+                        <p class="mt-2 text-reg-blue font-semibold">MLP</p>
+                        <p class="text-xs text-gray-400">F1: 0.6709</p>
+                    </div>
+                    
+                    <!-- VQC Bar - 65.12% of max height -->
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 bg-gradient-to-t from-teal-600 to-teal-400 rounded-t-lg data-bar transition-all duration-1000" style="height: 125px;"></div>
+                        <p class="mt-2 text-quantum-teal font-semibold">VQC</p>
+                        <p class="text-xs text-gray-400">F1: 0.6512</p>
+                    </div>
+                    
+                    <!-- BERT Bar - 83.08% of max height -->
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 bg-gradient-to-t from-green-600 to-green-400 rounded-t-lg data-bar transition-all duration-1000" style="height: 160px;"></div>
+                        <p class="mt-2 text-green-400 font-semibold">BERT</p>
+                        <p class="text-xs text-gray-400">F1: 0.8308</p>
+                    </div>
+                </div>
+                <p class="text-center text-gray-400 mt-4 italic text-sm">The VQC achieves comparable performance to classical MLP but lags behind the transformer-based BERT model.</p>
+            </div>
+        </section>
+
+        <section id="analysis" class="fade-in">
+            <h2 class="text-4xl font-bold text-center text-gold">Analysis & Discussion</h2>
+             <div class="card mt-12 border-l-4 border-amber-500 space-y-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-reg-blue mb-2">VQC vs. MLP (Identical Input): No Clear Quantum Edge</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed">The MLP slightly outperformed the VQC on the same 4D PCA features (F1: 0.67 vs 0.65). This critical comparison suggests that, for this highly compressed input and specific VQC architecture, the quantum circuit itself did not provide an advantage over a simple classical network. Factors likely include mature classical optimization, potential VQC trainability hurdles (like barren plateaus), and possible information loss during the Angle Embedding process. The VQC's simulation time (~394s vs ~2s) highlights current efficiency challenges for quantum simulation.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-reg-blue mb-2">Comparison to BERT: Power of Classical Pre-training</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed">BERT's superior performance (F1: 0.83) underscores the effectiveness of large-scale pre-training and sophisticated transformer architectures that process sequences directly. Our VQC/MLP approach, relying on averaged GloVe embeddings and PCA, loses significant contextual information compared to BERT's attention mechanisms.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-reg-blue mb-2">Which Texts Benefit from Quantum? An Open Question</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed">This experiment <strong>did not identify</strong> specific text types where the VQC structure offered benefits. While QNLP theoretically might excel at capturing complex correlations or utilizing high-dimensional Hilbert spaces, realizing this potential is constrained by:</p>
+                        <ul class="list-disc list-inside text-gray-400 mt-2 space-y-1 text-xs sm:text-sm">
+                            <li>The <strong>Classical Bottleneck:</strong> Performance heavily depends on the classical preprocessing (GloVe averaging, PCA information loss).</li>
+                            <li><strong>Input Encoding:</strong> Finding optimal, information-preserving ways to encode text data onto qubits is crucial and challenging.</li>
+                            <li><strong>NISQ Era Limitations:</strong> Current quantum devices (and simulations) are limited by qubit count, connectivity, noise, and coherence times.</li>
+                            <li><strong>Trainability:</strong> Optimizing VQCs effectively remains an active research area.</li>
+                        </ul>
+                    <p class="text-gray-300 text-sm leading-relaxed mt-2">The small dataset size (1000 samples) also limits generalizability. Determining where quantum truly provides an edge in NLP requires further research, potentially with different embeddings, tasks, or larger quantum resources.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-reg-blue mb-2">Key Takeaway & Alignment with Marking Schema</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed">This project successfully implemented a hybrid QNLP pipeline (<strong>Algorithm Design, Functionality</strong>), utilizing a specific embedding and VQC (<strong>Innovation</strong>). However, the VQC component did not demonstrate a performance or efficiency advantage (<strong>Performance, Optimization</strong>) over classical methods in this setup. The analysis highlights the significant impact of classical preprocessing and the challenges of the NISQ era, reflecting on the <strong>Real-World Potential</strong> which currently hinges on overcoming these bottlenecks. Clarity in methodology and results presentation is emphasized throughout (<strong>Presentation & Clarity</strong>).</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="future-potential" class="fade-in">
+            <h2 class="text-4xl font-bold text-center text-gold">Future Work & Real-World Potential</h2>
+            <div class="card mt-12 border-t-4 border-reg-blue max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-reg-blue mb-3">Improving the Quantum Approach</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2 text-sm">
+                            <li>Explore alternative quantum embeddings (e.g., amplitude encoding, trainable quantum embeddings).</li>
+                            <li>Experiment with different VQC architectures (e.g., hardware-efficient ansatz).</li>
+                            <li>Investigate advanced VQC optimization techniques.</li>
+                            <li>Test on larger datasets and evaluate scalability.</li>
+                            <li>Execute on real quantum hardware to assess noise impact.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-reg-blue mb-3">Real-World Application Potential</h3>
+                        <p class="text-gray-300 text-sm mb-3">
+                            While challenges exist, QNLP's long-term potential is significant for tasks involving complex correlations or high-dimensional spaces. Potential areas include:
+                        </p>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2 text-sm">
+                            <li>Drug discovery (molecular text analysis).</li>
+                            <li>Financial modeling (nuanced sentiment).</li>
+                            <li>Materials science (property prediction from text).</li>
+                        </ul>
+                        <p class="text-gray-400 text-xs mt-4 italic">Realizing this requires breakthroughs in quantum hardware, algorithms, and error correction.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add new section for Future Enhancements in Quantum Computing -->
+        <section id="future-enhancements" class="fade-in">
+            <h2 class="text-4xl font-bold text-center text-gold">Future Enhancements in Quantum Computing</h2>
+            <div class="grid md:grid-cols-2 gap-12 mt-12">
+                <div class="card glow-border slide-in-left">
+                    <h3 class="text-xl font-semibold mb-4 text-reg-blue">Next-Generation Quantum Hardware</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                        Future quantum computing advancements will focus on several key areas:
+                    </p>
+                    <ul class="list-disc list-inside text-gray-300 space-y-2 text-sm">
+                        <li><strong>Error Correction:</strong> Implementing practical quantum error correction to increase qubit coherence times</li>
+                        <li><strong>Qubit Scaling:</strong> Dramatically increasing the number of stable qubits from hundreds to thousands</li>
+                        <li><strong>Noise Reduction:</strong> Developing methods to mitigate environmental interference and quantum decoherence</li>
+                        <li><strong>Connectivity:</strong> Enhancing qubit-to-qubit connections for more complex entanglement patterns</li>
+                        <li><strong>Hybrid Approaches:</strong> Optimizing the interface between classical and quantum processing</li>
+                    </ul>
+                    <p class="text-gray-400 text-xs mt-4 italic">These advancements will enable increasingly complex quantum algorithms and real-world applications beyond current NISQ limitations.</p>
+                </div>
+                
+                <!-- Move Google Willow chip section here -->
+                <div class="card glow-border slide-in-right">
+                    <h3 class="text-xl font-semibold text-reg-blue mb-4">Google Willow: Leading Edge Hardware</h3>
+                    <p class="text-gray-400 text-sm mb-6">Google's Willow chip represents a significant advancement in quantum hardware design, focusing on error correction capabilities that are crucial for realizing the full potential of quantum computing applications like QNLP. Advances in hardware architecture are key to scaling qubits and reducing noise.</p>
+                    <div class="flex justify-center img-container">
+                        <img src="https://cdn.neowin.com/news/images/uploaded/2024/12/1733766189_google_willow_quantum_computing_chip.jpg"
+                            alt="Google Willow Quantum Computing Chip"
+                            class="rounded-lg shadow-lg max-w-md w-full h-auto object-contain feature-image"
+                        />
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2 italic">Google's Willow quantum processor features improved error correction and qubit stability</p>
+                </div>
+            </div>
+            
+            <div class="mt-8 card">
+                <h3 class="text-xl font-semibold mb-4 text-reg-blue">Impact on QNLP Applications</h3>
+                <p class="text-gray-300 text-sm leading-relaxed">
+                    As quantum hardware evolves, QNLP applications will benefit in several ways:
+                </p>
+                <div class="grid md:grid-cols-3 gap-6 mt-4">
+                    <div class="bg-gray-800/30 p-4 rounded-lg">
+                        <h4 class="font-semibold text-quantum-teal mb-2">Higher Dimensional Embeddings</h4>
+                        <p class="text-gray-400 text-xs">Future hardware will enable encoding text into higher-dimensional quantum states, potentially capturing semantic relationships that classical embeddings cannot.</p>
+                    </div>
+                    <div class="bg-gray-800/30 p-4 rounded-lg">
+                        <h4 class="font-semibold text-quantum-teal mb-2">Complex Quantum Circuits</h4>
+                        <p class="text-gray-400 text-xs">Error-corrected qubits will allow deeper circuits with more parameters, increasing the expressive power of quantum models for language tasks.</p>
+                    </div>
+                    <div class="bg-gray-800/30 p-4 rounded-lg">
+                        <h4 class="font-semibold text-quantum-teal mb-2">Quantum Advantage</h4>
+                        <p class="text-gray-400 text-xs">As hardware improves, the potential for demonstrating clear quantum advantage in specific NLP tasks becomes more realistic.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="code" class="fade-in">
+        <h2 class="text-4xl font-bold text-center text-gold">Code Highlights</h2>
+        <div class="grid md:grid-cols-2 gap-8 mt-12">
+            <div class="card glow-border">
+                <h3 class="text-xl font-semibold mb-4 text-reg-blue">Feature Preparation (PCA)</h3>
+                <pre><code class="language-python">
+# Assuming 'avg_embeddings_train' and 'avg_embeddings_test' are available
+# N_QUBITS is set (e.g., 4)
+
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
+# Initialize PCA
+pca = PCA(n_components=N_QUBITS)
+
+# Fit PCA on training data and transform both sets
+X_train_pca = pca.fit_transform(avg_embeddings_train)
+X_test_pca = pca.transform(avg_embeddings_test)
+
+# Initialize StandardScaler
+scaler = StandardScaler()
+
+# Fit scaler on training PCA data and transform both sets
+X_train_scaled = scaler.fit_transform(X_train_pca)
+X_test_scaled = scaler.transform(X_test_pca)
+
+print(f"Data shape after PCA and scaling (Train): {X_train_scaled.shape}")
+# Output: Data shape after PCA and scaling (Train): (500, 4)
+                </code></pre>
+            </div>
+            <div class="card glow-border">
+                <h3 class="text-xl font-semibold mb-4 text-reg-blue">VQC Definition (Pennylane)</h3>
+                <pre><code class="language-python">
+import pennylane as qml
+from pennylane import numpy as pnp
+import torch
+
+N_QUBITS = 4
+N_LAYERS = 3
+dev = qml.device("default.qubit", wires=N_QUBITS)
+
+@qml.qnode(dev, interface="torch")
+def quantum_circuit(inputs, weights):
+    """The variational quantum circuit."""
+    qml.AngleEmbedding(inputs, wires=range(N_QUBITS))
+    qml.StronglyEntanglingLayers(weights, wires=range(N_QUBITS))
+    return qml.expval(qml.PauliZ(wires=0))
+
+# Get weight shape and initialize (example)
+weights_shape = qml.StronglyEntanglingLayers.shape(n_layers=N_LAYERS, n_wires=N_QUBITS)
+weights_init = torch.randn(*weights_shape, requires_grad=True)
+                </code></pre>
+            </div>
+            <div class="card glow-border">
+                <h3 class="text-xl font-semibold mb-4 text-reg-blue">Hybrid PyTorch Model</h3>
+                <pre><code class="language-python">
+import torch
+import torch.nn as nn
+
+class HybridModel(nn.Module):
+    """Hybrid quantum-classical model integrating the QNode."""
+    def __init__(self, qnode, n_layers, n_qubits):
+        super().__init__()
+        weights_shape = qml.StronglyEntanglingLayers.shape(n_layers=n_layers, n_wires=n_qubits)
+        self.q_weights = nn.Parameter(torch.randn(*weights_shape))
+        self.qnode = qnode
+
+    def forward(self, x):
+        # Batch execution of QNode
+        q_out = torch.stack([self.qnode(inp, self.q_weights) for inp in x])
+        return q_out
+
+# Training example
+optimizer = torch.optim.Adam([model.q_weights], lr=0.01)
+criterion = nn.BCEWithLogitsLoss()
+
+for epoch in range(n_epochs):
+    running_loss = 0.0
+    for inputs, labels in train_loader:
+        optimizer.zero_grad()
+        outputs = model(inputs)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+        running_loss += loss.item()
+                </code></pre>
+            </div>
+            <div class="card glow-border">
+                <h3 class="text-xl font-semibold mb-4 text-reg-blue">BERT Fine-tuning Setup</h3>
+                <pre><code class="language-python">
+from transformers import BertTokenizer, BertForSequenceClassification, Trainer, TrainingArguments
+from datasets import Dataset
+
+model_name = "bert-base-uncased"
+tokenizer = BertTokenizer.from_pretrained(model_name)
+bert_model = BertForSequenceClassification.from_pretrained(model_name, num_labels=2)
+
+def tokenize_function(examples):
+    return tokenizer(examples["text"], padding="max_length", truncation=True, max_length=128)
+
+# Placeholder: Load data into Hugging Face Dataset
+train_dataset = Dataset.from_dict({
+    "text": train_texts,
+    "label": train_labels
+})
+test_dataset = Dataset.from_dict({
+    "text": test_texts,
+    "label": test_labels
+})
+
+tokenized_train = train_dataset.map(tokenize_function, batched=True)
+tokenized_test = test_dataset.map(tokenize_function, batched=True)
+
+training_args = TrainingArguments(
+    output_dir='./results_bert', 
+    num_train_epochs=3,
+    per_device_train_batch_size=16, 
+    per_device_eval_batch_size=16,
+    warmup_steps=50, 
+    weight_decay=0.01, 
+    logging_dir='./logs_bert',
+    logging_steps=10, 
+    evaluation_strategy="epoch", 
+    save_strategy="epoch",
+    load_best_model_at_end=True, 
+    metric_for_best_model="f1", 
+    report_to="none"
+)
+
+trainer = Trainer(
+    model=bert_model,
+    args=training_args,
+    train_dataset=tokenized_train,
+    eval_dataset=tokenized_test,
+    compute_metrics=compute_metrics
+)
+                </code></pre>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <footer class="bg-dark-card mt-16 md:mt-24 border-t border-gray-700">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold text-gold mb-4">QNLP Project</h3>
+                    <p class="text-gray-400 text-sm">Exploring the potential of Variational Quantum Circuits (VQCs) for sentiment analysis in the NISQ era.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-reg-blue mb-4">Resources</h3>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white">Pennylane Documentation</a></li>
+                        <li><a href="#" class="hover:text-white">IBM Quantum Computing</a></li>
+                        <li><a href="#" class="hover:text-white">Quantum NLP Papers</a></li>
+                        <li><a href="#" class="hover:text-white">BERT Documentation</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-quantum-teal mb-4">Contact</h3>
+                    <p class="text-gray-400 text-sm">Parthiv Reddy Yarrapureddy</p>
+                    <p class="text-gray-400 text-sm">Mahindra University</p>
+                    <p class="text-gray-400 text-sm">parthiv.research@example.com</p>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700">
+                <p class="text-center text-gray-400 text-sm">
+                    &copy; 2025 Parthiv Reddy Yarrapureddy - Mahindra University. QNLP Sentiment Analysis Project.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
