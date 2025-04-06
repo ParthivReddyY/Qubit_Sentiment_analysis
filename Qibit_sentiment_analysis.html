@@ -63,9 +63,9 @@
              <img src="https://www.science.org/do/10.1126/science.adh2923/full/_0224_quantumcomputing.jpg"
                   alt="Quantum Technology Visualization"
                   class="w-full h-full object-cover opacity-40 object-center filter brightness-110"
-                  onerror="this.style.display='none'; document.getElementById('hero-fallback-bg').style.display='block';"
+                  onerror="this.style.display='none'; document.getElementById('hero-fallback-bg').classList.remove('hidden');"
              />
-             <div id="hero-fallback-bg" class="absolute inset-0 bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 opacity-80" style="display: none;"></div>
+             <div id="hero-fallback-bg" class="absolute inset-0 bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 opacity-80 hidden"></div>
          </div>
 
         <div class="relative z-10 fade-in max-w-4xl hero-content">
@@ -90,9 +90,9 @@
         </div>
 
         <!-- Animated qubit orbs -->
-        <div class="absolute bottom-10 left-10 w-20 h-20 rounded-full bg-blue-500/20 backdrop-blur-md floating" style="animation-delay: 0s;"></div>
-        <div class="absolute top-20 right-20 w-16 h-16 rounded-full bg-purple-500/20 backdrop-blur-md floating" style="animation-delay: 0.5s;"></div>
-        <div class="absolute bottom-32 right-16 w-12 h-12 rounded-full bg-teal-500/20 backdrop-blur-md floating" style="animation-delay: 1s;"></div>
+        <div class="absolute bottom-10 left-10 w-20 h-20 rounded-full bg-blue-500/20 backdrop-blur-md floating floating-delay-0"></div>
+        <div class="absolute top-20 right-20 w-16 h-16 rounded-full bg-purple-500/20 backdrop-blur-md floating floating-delay-1"></div>
+        <div class="absolute bottom-32 right-16 w-12 h-12 rounded-full bg-teal-500/20 backdrop-blur-md floating floating-delay-2"></div>
     </header>
 
     <main class="container mx-auto px-6 lg:px-8">
@@ -181,7 +181,7 @@
             <div class="card mt-12 border-l-4 border-reg-blue">
                 <h3 class="text-2xl font-semibold mb-8 text-center text-reg-blue">Pipeline Steps</h3>
                 <div class="relative">
-                    <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-blue-500/30 hidden md:block" style="transform: translateX(-50%);"></div>
+                    <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-blue-500/30 hidden md:block timeline-divider"></div>
                     <div class="space-y-10 md:space-y-0 md:grid md:grid-cols-5 md:gap-8 items-start relative">
                          <div class="text-center relative z-10 md:col-span-1">
                             <div class="mx-auto w-20 h-20 rounded-full bg-dark-code flex items-center justify-center mb-3 ring-4 ring-gray-700 border border-reg-blue">
@@ -292,6 +292,15 @@
                             <td class="p-3 border border-gray-600 text-center text-green-400">~2.29</td>
                         </tr>
                         <tr class="hover:bg-gray-700/50">
+                            <td class="p-3 border border-gray-600 font-medium text-blue-400">LSTM</td>
+                            <td class="p-3 border border-gray-600 text-sm">GloVe Sequence</td>
+                            <td class="p-3 border border-gray-600 text-center">0.4980</td>
+                            <td class="p-3 border border-gray-600 text-center">0.4986</td>
+                            <td class="p-3 border border-gray-600 text-center text-green-400">0.7360</td>
+                            <td class="p-3 border border-gray-600 text-center font-semibold">0.5945</td>
+                            <td class="p-3 border border-gray-600 text-center text-green-400">~0.35</td>
+                        </tr>
+                        <tr class="hover:bg-gray-700/50">
                             <td class="p-3 border border-gray-600 font-medium">BERT</td>
                             <td class="p-3 border border-gray-600 text-sm">Raw Text -> BERT Tokenizer</td>
                             <td class="p-3 border border-gray-600 text-center">0.8240</td>
@@ -302,7 +311,7 @@
                         </tr>
                     </tbody>
                 </table>
-                 <p class="text-center text-gray-400 mt-6 italic text-sm">Key comparison: VQC vs MLP on identical 4D input features.</p>
+                 <p class="text-center text-gray-400 mt-6 italic text-sm">Key comparison: VQC vs MLP on identical 4D input features; LSTM results show high recall but lower overall F1 score.</p>
             </div>
             
             <!-- Add interactive visualization -->
@@ -314,26 +323,33 @@
                     
                     <!-- MLP Bar - 67.09% of max height -->
                     <div class="flex flex-col items-center">
-                        <div class="w-20 bg-gradient-to-t from-blue-600 to-blue-400 rounded-t-lg data-bar transition-all duration-1000" style="height: 130px;"></div>
+                        <div class="w-16 rounded-t-lg data-bar data-bar-mlp"></div>
                         <p class="mt-2 text-reg-blue font-semibold">MLP</p>
                         <p class="text-xs text-gray-400">F1: 0.6709</p>
                     </div>
                     
                     <!-- VQC Bar - 65.12% of max height -->
                     <div class="flex flex-col items-center">
-                        <div class="w-20 bg-gradient-to-t from-teal-600 to-teal-400 rounded-t-lg data-bar transition-all duration-1000" style="height: 125px;"></div>
+                        <div class="w-16 rounded-t-lg data-bar data-bar-vqc"></div>
                         <p class="mt-2 text-quantum-teal font-semibold">VQC</p>
                         <p class="text-xs text-gray-400">F1: 0.6512</p>
                     </div>
                     
+                    <!-- LSTM Bar - 59.45% of max height -->
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 rounded-t-lg data-bar data-bar-lstm"></div>
+                        <p class="mt-2 text-blue-400 font-semibold">LSTM</p>
+                        <p class="text-xs text-gray-400">F1: 0.5945</p>
+                    </div>
+                    
                     <!-- BERT Bar - 83.08% of max height -->
                     <div class="flex flex-col items-center">
-                        <div class="w-20 bg-gradient-to-t from-green-600 to-green-400 rounded-t-lg data-bar transition-all duration-1000" style="height: 160px;"></div>
+                        <div class="w-16 rounded-t-lg data-bar data-bar-bert"></div>
                         <p class="mt-2 text-green-400 font-semibold">BERT</p>
                         <p class="text-xs text-gray-400">F1: 0.8308</p>
                     </div>
                 </div>
-                <p class="text-center text-gray-400 mt-4 italic text-sm">The VQC achieves comparable performance to classical MLP but lags behind the transformer-based BERT model.</p>
+                <p class="text-center text-gray-400 mt-4 italic text-sm">The VQC achieves better performance than LSTM with GloVe embeddings and is comparable to the classical MLP, though all lag behind the transformer-based BERT model.</p>
             </div>
         </section>
 
@@ -341,8 +357,8 @@
             <h2 class="text-4xl font-bold text-center text-gold">Analysis & Discussion</h2>
              <div class="card mt-12 border-l-4 border-amber-500 space-y-6">
                 <div>
-                    <h3 class="text-xl font-semibold text-reg-blue mb-2">VQC vs. MLP (Identical Input): No Clear Quantum Edge</h3>
-                    <p class="text-gray-300 text-sm leading-relaxed">The MLP slightly outperformed the VQC on the same 4D PCA features (F1: 0.67 vs 0.65). This critical comparison suggests that, for this highly compressed input and specific VQC architecture, the quantum circuit itself did not provide an advantage over a simple classical network. Factors likely include mature classical optimization, potential VQC trainability hurdles (like barren plateaus), and possible information loss during the Angle Embedding process. The VQC's simulation time (~394s vs ~2s) highlights current efficiency challenges for quantum simulation.</p>
+                    <h3 class="text-xl font-semibold text-reg-blue mb-2">VQC vs. MLP & LSTM: Mixed Results</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed">The MLP slightly outperformed the VQC on the same 4D PCA features (F1: 0.67 vs 0.65), while both significantly outperformed the LSTM (F1: 0.59) despite LSTM's strong recall (0.74). The LSTM's poor precision (0.50) suggests it frequently predicted positive sentiment regardless of actual content. Notably, the VQC outperformed the sequence-based LSTM, indicating that for this dataset size and processing approach, the quantum circuit's expressivity may have some advantages over sequential models. The VQC's simulation time (~394s) remains a significant challenge compared to both MLP (~2s) and the extremely fast LSTM (~0.35s).</p>
                 </div>
                 <div>
                     <h3 class="text-xl font-semibold text-reg-blue mb-2">Comparison to BERT: Power of Classical Pre-training</h3>
@@ -589,6 +605,50 @@ trainer = Trainer(
 )
                 </code></pre>
             </div>
+            <div class="card glow-border">
+                <h3 class="text-xl font-semibold mb-4 text-reg-blue">LSTM Model Implementation</h3>
+                <pre><code class="language-python">
+import torch
+import torch.nn as nn
+from torch.utils.data import Dataset, DataLoader
+
+class LSTMSentiment(nn.Module):
+    def __init__(self, embedding_dim, hidden_dim, output_dim=1):
+        super().__init__()
+        self.lstm = nn.LSTM(embedding_dim, 
+                           hidden_dim, 
+                           num_layers=1,
+                           batch_first=True)
+        self.fc = nn.Linear(hidden_dim, output_dim)
+        
+    def forward(self, sequences):
+        # Input shape: [batch_size, seq_len, embedding_dim]
+        lstm_out, (hidden, cell) = self.lstm(sequences)
+        
+        # Use the final hidden state
+        out = self.fc(hidden[-1])
+        return out.squeeze(1)
+
+# Create model with GloVe embedding dimension (300) and hidden size
+model = LSTMSentiment(
+    embedding_dim=300, 
+    hidden_dim=128
+)
+
+# Example training loop
+optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+criterion = nn.BCEWithLogitsLoss()
+
+for epoch in range(n_epochs):
+    model.train()
+    for sequences, labels in train_loader:
+        optimizer.zero_grad()
+        predictions = model(sequences)
+        loss = criterion(predictions, labels.float())
+        loss.backward()
+        optimizer.step()
+    </code></pre>
+</div>
         </div>
     </section>
 

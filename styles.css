@@ -4,6 +4,8 @@ body {
     background-color: #111827; /* Near Black/Space Black (Tailwind gray-900) */
     color: #D1D5DB; /* Base text (Tailwind gray-300) */
     line-height: 1.6;
+    margin: 0;
+    padding: 0;
 }
 /* Custom Colors Mapping (Approximations) */
 :root {
@@ -92,17 +94,35 @@ body {
     box-shadow: 0 0 20px var(--color-quantum-teal);
 }
 
-/* Code blocks */
+/* Code blocks - Improved for GitHub Pages and full width */
+pre {
+    margin: 1rem 0;
+    padding: 0;
+    overflow: auto;
+    max-width: 100%;
+    border-radius: 0.5rem;
+    background-color: var(--color-dark-code);
+}
+
 pre code { 
     display: block; 
     padding: 1rem; 
-    border-radius: 0.5rem; 
-    overflow-x: auto; 
     font-family: 'Courier New', Courier, monospace; 
     font-size: 0.875rem; 
     background-color: var(--color-dark-code); 
-    color: #E5E7EB; 
+    color: #E5E7EB;
     border-left: 3px solid var(--color-quantum-purple);
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 1.5;
+}
+
+/* Code block line breaking for mobile */
+@media (max-width: 768px) {
+    pre code {
+        font-size: 0.75rem;
+    }
 }
 
 /* Presentation Look Enhancements */
@@ -134,6 +154,7 @@ h2:after {
     padding: 2rem; 
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 1rem;
 }
 
 .card:hover {
@@ -162,6 +183,7 @@ h2:after {
 .img-container {
     overflow: hidden;
     border-radius: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .img-zoom {
@@ -240,6 +262,8 @@ header::before {
     border: 1px solid rgba(96, 165, 250, 0.2);
     transition: all 0.5s ease;
     filter: saturate(1.1) brightness(1.05);
+    max-width: 100%;
+    height: auto;
 }
 
 .feature-image:hover {
@@ -320,7 +344,57 @@ footer a:hover::after {
     width: 100%;
 }
 
-/* Responsive design improvements */
+/* Button styling for quantum theme */
+.btn-quantum {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, var(--color-quantum-teal), var(--color-quantum-purple));
+    color: white;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-quantum:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15), 0 0 10px rgba(45, 212, 191, 0.5);
+}
+
+/* Container for better layout */
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Fix mobile layout issues */
+.grid {
+    display: grid;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    
+    .md\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    
+    .md\:grid-cols-5 {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+}
+
+/* GitHub Pages specific fixes */
 @media (max-width: 768px) {
     .hero-content {
         padding: 1.5rem;
@@ -333,12 +407,44 @@ footer a:hover::after {
     
     h2 {
         font-size: 1.75rem;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
     }
 
     .section-divider {
         margin: 1.5rem 0;
     }
+    
+    /* Improve mobile navigation */
+    #mobile-menu {
+        background-color: rgba(31, 41, 55, 0.95);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+    }
+    
+    /* Ensure images don't overflow on mobile */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
 }
+
+/* Tailwind utility classes for GitHub Pages compatibility */
+.hidden { display: none; }
+.block { display: block; }
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.justify-center { justify-content: center; }
+.items-center { align-items: center; }
+.text-center { text-align: center; }
+.rounded-lg { border-radius: 0.5rem; }
+.w-full { width: 100%; }
+.max-w-xl { max-width: 36rem; }
+.mt-12 { margin-top: 3rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.space-y-2 > * + * { margin-top: 0.5rem; }
 
 /* Dark mode quality of life improvements */
 @media (prefers-color-scheme: dark) {
@@ -349,4 +455,71 @@ footer a:hover::after {
     pre code {
         background-color: rgba(55, 65, 81, 0.8);
     }
+}
+.link-reg-blue {
+    color: theme('colors.reg-blue');
+}
+
+#hero-fallback-bg.hidden {
+    display: none;
+}
+
+.link-reg-blue {
+    color: theme('colors.reg-blue');
+}
+
+#hero-fallback-bg.hidden {
+    display: none;
+}
+
+/* Floating animation classes to replace inline styles */
+.floating-delay-0 {
+    animation-delay: 0s;
+}
+
+.floating-delay-1 {
+    animation-delay: 0.5s;
+}
+
+.floating-delay-2 {
+    animation-delay: 1s;
+}
+
+.floating-delay-2 {
+    animation-delay: 1s;
+}
+
+/* Timeline divider positioning */
+.timeline-divider {
+    transform: translateX(-50%);
+}
+/* Timeline divider positioning */
+.timeline-divider {
+    transform: translateX(-50%);
+}
+
+/* Bar chart styling for performance comparison */
+.data-bar {
+    transition: all 1000ms;
+}
+.data-bar-mlp {
+    height: 130px;
+    background-image: linear-gradient(to top, #2563eb, #60a5fa);
+}
+.data-bar-vqc {
+    height: 125px;
+    background-image: linear-gradient(to top, #0d9488, #2dd4bf);
+}
+.data-bar-lstm {
+    height: 115px;
+    background-image: linear-gradient(to top, #1e40af, #93c5fd);
+}
+.data-bar-bert {
+    height: 160px;
+    background-image: linear-gradient(to top, #059669, #4ade80);
+    transition: height 0.3s ease;
+}
+.data-bar-bert:hover {
+    height: 180px;
+    background-image: linear-gradient(to top, #065f46, #34d399);
 }
